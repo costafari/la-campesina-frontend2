@@ -3,7 +3,7 @@
     <div class="ui-helper-clearfix">
       <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">CLIENTES</span>
       <div style="float: right;">
-        <p-button label="Nuevo" icon="pi pi-save"></p-button>
+        <p-button label="Nuevo" icon="pi pi-save" [routerLink]="'/cliente-form'"></p-button>
       </div>
     </div>
   </p-header>
@@ -44,12 +44,12 @@
         <td>{{cliente.notas}}</td>
         <td>
           <div style="text-align: center;">
-            <p-button icon="pi pi-pencil" styleClass="ui-button-success"></p-button>
+            <p-button icon="pi pi-pencil" styleClass="ui-button-success" [routerLink]="['/cliente-form/', cliente.id]"></p-button>
           </div>
         </td>
         <td>
           <div style="text-align: center;">
-            <p-button icon="pi pi-trash" styleClass="ui-button-danger"></p-button>
+            <p-button icon="pi pi-trash" styleClass="ui-button-danger" (onClick)="eliminarLinea(cliente.id)"></p-button>
           </div>
         </td>
       </tr>

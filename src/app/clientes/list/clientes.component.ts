@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Clientes } from '../clientes';
 import { ClientesService } from '../clientes.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',
@@ -11,12 +12,26 @@ export class ClientesComponent implements OnInit {
 
   listAllClientes: Clientes[];
 
-  constructor(private clienteService: ClientesService) { }
+  constructor(private clienteService: ClientesService, private router: Router) { }
 
   ngOnInit(): void {
+    this.showAllClientes();
+  }
+
+  showAllClientes(): void {
     this.clienteService.getAllClientes().subscribe(
       Clientes => this.listAllClientes = Clientes
     )
+  }
+
+  actualizarLinea(cliente: Clientes): void {
+    this.clienteService.updateCliente(cliente).subscribe()
+  }
+
+  eliminarLinea(id: Number): void {
+    this.clienteService.deleteCliente(id).subscribe(
+      Clientes => this.showAllClientes()
+    );
   }
 
 }

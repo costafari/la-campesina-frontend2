@@ -1,1 +1,87 @@
-<p>form works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+    <p-panel>
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Nuevo
+                    Cliente</span>
+                <div style="float: right;">
+                    <button pButton type="submit" icon="pi pi-plus" label="Guardar" class="ui-button-info"
+                        style="margin-right: .25em"></button>
+                    <button pButton type="reset" icon="pi pi-search" label="Cancelar" routerLink="/cliente-list"
+                        class="ui-button-success"></button>
+                </div>
+            </div>
+        </p-header>
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-4">
+                <label for="nombres">Nombre(s)</label>
+                <input id="nombres" type="text" formControlName="nombres" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="apellidos">Apellido(s)</label>
+                <input id="apellidos" type="text" formControlName="apellidos" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4"></div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="nombreEmpresa">Nombre Empresa</label>
+                <input id="nombreEmpresa" type="text" formControlName="nombreEmpresa" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="nombreContacto">Nombre Contacto</label>
+                <input id="nombreContacto" type="text" formControlName="nombreContacto" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4"></div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="direccion">Direccion</label>
+                <input id="direccion" type="text" formControlName="direccion" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="email">E-mail</label>
+                <input id="email" type="text" formControlName="email" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-4"></div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="telefonoFijo1">Telefono 1</label>
+                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="telefonoFijo1">
+                </p-inputMask>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="telefonoFijo2">Telefono 2</label>
+                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="telefonoFijo2">
+                </p-inputMask>
+            </div>
+            <div class="p-field p-col-12 p-md-4"></div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="movil1">Movil 1</label>
+                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="movil1">
+                </p-inputMask>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="movil2">Movil 2</label>
+                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="movil2">
+                </p-inputMask>
+            </div>
+            <div class="p-field p-col-12 p-md-4"></div>
+            <div class="p-field p-col-12 p-md-9">
+                <label for="web">Sitio Web</label>
+                <input id="web" type="text" formControlName="web" pInputText>
+            </div>
+            <div class="p-field p-col-12 p-md-3"></div>
+            <div class="p-field p-col-12 p-md-12">
+                <label for="notas">Notas</label>
+                <textarea id="notas" type="text" rows="4" formControlName="notas" pInputTextarea></textarea>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-helper-clearfix">
+                <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"></span>
+                <div style="float: right;">
+                    <button pButton type="submit" icon="pi pi-plus" label="Guardar" class="ui-button-info"
+                        style="margin-right: .25em"></button>
+                    <button pButton type="reset" icon="pi pi-search" label="Cancelar" routerLink="/cliente-list"
+                        class="ui-button-success"></button>
+                </div>
+            </div>
+        </p-footer>
+    </p-panel>
+</form>
