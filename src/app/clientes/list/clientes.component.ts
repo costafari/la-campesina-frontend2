@@ -25,11 +25,7 @@ export class ClientesComponent implements OnInit {
     )
   }
 
-  actualizarLinea(cliente: Clientes): void {
-    this.clienteService.updateCliente(cliente).subscribe()
-  }
-
-  eliminarLinea(id: Number): void {
+  deleteCliente(id: Number): void {
     this.clienteService.deleteCliente(id).subscribe(
       Clientes => this.showAllClientes()
     );

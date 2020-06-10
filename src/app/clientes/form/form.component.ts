@@ -13,6 +13,8 @@ export class FormComponent implements OnInit {
 
   private cliente: Clientes = new Clientes();
   public form: FormGroup;
+  public esModificar: boolean;
+  private idForm: number;
 
   constructor(private clienteService: ClientesService, private router: Router, private fb: FormBuilder, private ar: ActivatedRoute) { }
 
@@ -34,16 +36,23 @@ export class FormComponent implements OnInit {
       'activo': new FormControl('True', Validators.required)
     })
 
+    this.esModificar = false;
     this.cargarCliente();
 
   }
 
+  // Metodo para solicitar el control de los elementos de Form en la vista
+  // get f() {
+  //   return this.form.controls;
+  // }
+
   public cargarCliente(): void {
     this.ar.params.subscribe(
       params => {
-        let id = params['id']
-        if (id) {
-          this.clienteService.getClienteById(id).subscribe(values => {
+        this.idForm = params['id']
+        if (this.idForm) {
+          this.clienteService.getClienteById(this.idForm).subscribe(values => {
+            this.esModificar = true;
             this.form.patchValue(values)
           })
         }
@@ -52,13 +61,12 @@ export class FormComponent implements OnInit {
   }
 
   public onSubmit(formulario): void {
-    this.clienteService.createCliente(formulario).subscribe();
+    if (this.esModificar){
+      formulario.id = this.idForm;
+      this.clienteService.updateCliente(formulario).subscribe();
+    }
+    else
+      this.clienteService.createCliente(formulario).subscribe()
   }
-
-  public update(formulario): void {
-    this.clienteService.updateCliente(formulario).subscribe();
-  }
-
-
 
 }

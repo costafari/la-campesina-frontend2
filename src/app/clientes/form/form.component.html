@@ -6,11 +6,11 @@
                     Cliente</span>
                 <div style="float: right;">
                     <button pButton type="submit" icon="pi pi-plus" label="Guardar" class="ui-button-info"
-                        style="margin-right: .25em" *ngIf="!nombres else elseBlock"></button>
+                        style="margin-right: .25em" *ngIf="!esModificar else elseBlock"></button>
 
                     <ng-template #elseBlock>
                         <button pButton type="submit" icon="pi pi-plus" label="Modificar" class="ui-button-info"
-                            style="margin-right: .25em"></button>
+                            style="margin-right: .25em" ></button>
                     </ng-template>
 
                     <button pButton type="reset" icon="pi pi-search" label="Cancelar" routerLink="/cliente-list"
@@ -83,12 +83,7 @@
                 <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"></span>
                 <div style="float: right;">
                     <button pButton type="submit" icon="pi pi-plus" label="Guardar" class="ui-button-info"
-                        style="margin-right: .25em" *ngIf="!cliente.id else elseBlock"></button>
-
-                    <ng-template #elseBlock>
-                        <button pButton type="submit" icon="pi pi-plus" label="Modificar" class="ui-button-info"
-                            style="margin-right: .25em"></button>
-                    </ng-template>
+                        style="margin-right: .25em" *ngIf="!esModificar else elseBlock"></button>
 
                     <button pButton type="reset" icon="pi pi-search" label="Cancelar" routerLink="/cliente-list"
                         class="ui-button-success"></button>
