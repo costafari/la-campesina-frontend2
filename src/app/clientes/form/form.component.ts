@@ -24,13 +24,14 @@ export class FormComponent implements OnInit {
       'nombreEmpresa': new FormControl('', Validators.required),
       'nombreContacto': new FormControl('', Validators.required),
       'direccion': new FormControl('', Validators.required),
-      'email': new FormControl('', Validators.required),
-      'telefonoFijo1': new FormControl('', Validators.required),
+      'telefonoFijo': new FormControl('', Validators.required),
       'telefonoFijo2': new FormControl('', Validators.required),
-      'movil1': new FormControl('', Validators.required),
-      'movil2': new FormControl('', Validators.required),
-      'web': new FormControl('', Validators.required),
-      'notas': new FormControl('', Validators.required)
+      'telefonoMovil': new FormControl('', Validators.required),
+      'telefonoMovil2': new FormControl('', Validators.required),
+      'email': new FormControl('', Validators.required),
+      'sitioWeb': new FormControl('', Validators.required),
+      'notas': new FormControl('', Validators.required),
+      'activo': new FormControl('True', Validators.required)
     })
 
     this.cargarCliente();
@@ -41,10 +42,10 @@ export class FormComponent implements OnInit {
     this.ar.params.subscribe(
       params => {
         let id = params['id']
-        console.log(id)
         if (id) {
-          this.clienteService.getClienteById(id).subscribe((cliente) => this.cliente = cliente)
-          this.form.setValue({id: id, nombres: this.cliente.nombres})
+          this.clienteService.getClienteById(id).subscribe(values => {
+            this.form.patchValue(values)
+          })
         }
       }
     )

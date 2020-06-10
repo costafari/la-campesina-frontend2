@@ -6,7 +6,13 @@
                     Cliente</span>
                 <div style="float: right;">
                     <button pButton type="submit" icon="pi pi-plus" label="Guardar" class="ui-button-info"
-                        style="margin-right: .25em"></button>
+                        style="margin-right: .25em" *ngIf="!nombres else elseBlock"></button>
+
+                    <ng-template #elseBlock>
+                        <button pButton type="submit" icon="pi pi-plus" label="Modificar" class="ui-button-info"
+                            style="margin-right: .25em"></button>
+                    </ng-template>
+
                     <button pButton type="reset" icon="pi pi-search" label="Cancelar" routerLink="/cliente-list"
                         class="ui-button-success"></button>
                 </div>
@@ -35,14 +41,10 @@
                 <label for="direccion">Direccion</label>
                 <input id="direccion" type="text" formControlName="direccion" pInputText>
             </div>
-            <div class="p-field p-col-12 p-md-4">
-                <label for="email">E-mail</label>
-                <input id="email" type="text" formControlName="email" pInputText>
-            </div>
             <div class="p-field p-col-12 p-md-4"></div>
             <div class="p-field p-col-12 p-md-4">
-                <label for="telefonoFijo1">Telefono 1</label>
-                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="telefonoFijo1">
+                <label for="telefonoFijo">Telefono 1</label>
+                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="telefonoFijo">
                 </p-inputMask>
             </div>
             <div class="p-field p-col-12 p-md-4">
@@ -52,19 +54,23 @@
             </div>
             <div class="p-field p-col-12 p-md-4"></div>
             <div class="p-field p-col-12 p-md-4">
-                <label for="movil1">Movil 1</label>
-                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="movil1">
+                <label for="telefonoMovil">Movil 1</label>
+                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="telefonoMovil">
                 </p-inputMask>
             </div>
             <div class="p-field p-col-12 p-md-4">
-                <label for="movil2">Movil 2</label>
-                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="movil2">
+                <label for="telefonoMovil2">Movil 2</label>
+                <p-inputMask mask="(999) 9999-9999" placeholder="(503) 7777-7777" formControlName="telefonoMovil2">
                 </p-inputMask>
+            </div>
+            <div class="p-field p-col-12 p-md-4">
+                <label for="email">E-mail</label>
+                <input id="email" type="text" formControlName="email" pInputText>
             </div>
             <div class="p-field p-col-12 p-md-4"></div>
             <div class="p-field p-col-12 p-md-9">
-                <label for="web">Sitio Web</label>
-                <input id="web" type="text" formControlName="web" pInputText>
+                <label for="sitioWeb">Sitio Web</label>
+                <input id="sitioWeb" type="text" formControlName="sitioWeb" pInputText>
             </div>
             <div class="p-field p-col-12 p-md-3"></div>
             <div class="p-field p-col-12 p-md-12">
@@ -77,7 +83,13 @@
                 <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"></span>
                 <div style="float: right;">
                     <button pButton type="submit" icon="pi pi-plus" label="Guardar" class="ui-button-info"
-                        style="margin-right: .25em"></button>
+                        style="margin-right: .25em" *ngIf="!cliente.id else elseBlock"></button>
+
+                    <ng-template #elseBlock>
+                        <button pButton type="submit" icon="pi pi-plus" label="Modificar" class="ui-button-info"
+                            style="margin-right: .25em"></button>
+                    </ng-template>
+
                     <button pButton type="reset" icon="pi pi-search" label="Cancelar" routerLink="/cliente-list"
                         class="ui-button-success"></button>
                 </div>
