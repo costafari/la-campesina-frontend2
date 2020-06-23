@@ -17,19 +17,31 @@ import { InputTextareaModule } from "primeng/components/inputtextarea/inputtexta
 import { InputMaskModule } from "primeng/components/inputmask/inputmask";
 import { MenuItem } from 'primeng/api';
 
-import { ClientesService } from "./clientes/clientes.service";
+import { LacampesinaService } from "./lacampesina.service";
 
 import { AppComponent } from './app.component';
 import { ClientesComponent } from './clientes/list/clientes.component';
 import { FormComponent } from './clientes/form/form.component';
 import { MenuComponent } from './menu/menu/menu.component';
+import { ProveedoresComponent } from './proveedores/list/proveedores/proveedores.component';
+import { FormProveedorComponent } from './proveedores/form-proveedor/form-proveedor.component';
+import { ListProductosComponent } from './productos/list-productos/list-productos.component';
+import { FormProductosComponent } from './productos/form-productos/form-productos.component';
+import { ListLotesComponent } from './lotes/list-lotes/list-lotes/list-lotes.component';
+import { FormLotesComponent } from './lotes/form-lotes/form-lotes/form-lotes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClientesComponent,
     FormComponent,
-    MenuComponent
+    MenuComponent,
+    ProveedoresComponent,
+    FormProveedorComponent,
+    ListProductosComponent,
+    FormProductosComponent,
+    ListLotesComponent,
+    FormLotesComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +61,7 @@ import { MenuComponent } from './menu/menu/menu.component';
     InputTextareaModule,
     InputMaskModule
   ],
-  providers: [ClientesService],
+  providers: [LacampesinaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

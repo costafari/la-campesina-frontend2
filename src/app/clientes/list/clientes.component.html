@@ -7,10 +7,10 @@
       </div>
     </div>
   </p-header>
-  <p-table [value]="listAllClientes">
+  <p-table [value]="listAllClientes" class="centrarContenido">
     <ng-template pTemplate="header">
       <tr>
-        <th>Id</th>
+        <th class="botones">Id</th>
         <th>Nombres</th>
         <th>Apellidos</th>
         <th>Nombre Empresa</th>
@@ -23,8 +23,8 @@
         <th>Telefono Movil 2</th>
         <th>Sitio Web</th>
         <th>Notas</th>
-        <th></th>
-        <th></th>
+        <th class="botones"></th>
+        <th class="botones"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-cliente>
@@ -43,7 +43,7 @@
         <td>{{cliente.sitioWeb}}</td>
         <td>{{cliente.notas}}</td>
         <td>
-          <div style="text-align: center;">
+          <div id="pyxBtns">
             <p-button icon="pi pi-pencil" styleClass="ui-button-success" [routerLink]="['/cliente-form/', cliente.id]"></p-button>
           </div>
         </td>

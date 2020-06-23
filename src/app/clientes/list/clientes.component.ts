@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Clientes } from '../clientes';
-import { ClientesService } from '../clientes.service';
 import { Router } from '@angular/router';
+import { LacampesinaService } from 'src/app/lacampesina.service';
 
 @Component({
   selector: 'app-clientes',
@@ -12,23 +12,24 @@ export class ClientesComponent implements OnInit {
 
   cliente: Clientes = new Clientes()
   listAllClientes: Clientes[];
+  url: String = "clientes";
 
-  constructor(private clienteService: ClientesService, private router: Router) { }
+  constructor(private router: Router, private lacampesinaService: LacampesinaService) { }
 
   ngOnInit(): void {
     this.showAllClientes();
   }
 
   showAllClientes(): void {
-    this.clienteService.getAllClientes().subscribe(
+    this.lacampesinaService.getAllObjects(this.url).subscribe(
       Clientes => this.listAllClientes = Clientes
     )
   }
 
   deleteCliente(id: Number): void {
-    this.clienteService.deleteCliente(id).subscribe(
+    this.lacampesinaService.deleteObject(this.url, id).subscribe(
       Clientes => this.showAllClientes()
-    );
+    )
   }
 
 }

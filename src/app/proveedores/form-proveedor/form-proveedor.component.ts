@@ -1,27 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
 import { LacampesinaService } from 'src/app/lacampesina.service';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  selector: 'app-form-proveedor',
+  templateUrl: './form-proveedor.component.html',
+  styleUrls: ['./form-proveedor.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormProveedorComponent implements OnInit {
 
   public form: FormGroup;
   public esModificar: boolean;
   private idForm: number;
-  url: String = "clientes";
+  url: String = "proveedores";
 
-  constructor(private lacampesinaService: LacampesinaService, private router: Router, private fb: FormBuilder, private ar: ActivatedRoute) { }
+  constructor(private lacampesinaService: LacampesinaService, private fb: FormBuilder, private ar: ActivatedRoute) { }
 
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      'nombres': new FormControl('', Validators.required),
-      'apellidos': new FormControl('', Validators.required),
       'nombreEmpresa': new FormControl('', Validators.required),
       'nombreContacto': new FormControl('', Validators.required),
       'direccion': new FormControl('', Validators.required),
@@ -29,23 +27,15 @@ export class FormComponent implements OnInit {
       'telefonoFijo2': new FormControl('', Validators.required),
       'telefonoMovil': new FormControl('', Validators.required),
       'telefonoMovil2': new FormControl('', Validators.required),
-      'email': new FormControl('', Validators.required),
-      'sitioWeb': new FormControl('', Validators.required),
       'notas': new FormControl('', Validators.required),
       'activo': new FormControl('True', Validators.required)
-    })
+    });
 
     this.esModificar = false;
-    this.cargarCliente();
-
+    this.cargarProveedor();
   }
 
-  // Metodo para solicitar el control de los elementos de Form en la vista
-  // get f() {
-  //   return this.form.controls;
-  // }
-
-  public cargarCliente(): void {
+  public cargarProveedor(): void {
     this.ar.params.subscribe(
       params => {
         this.idForm = params['id']
