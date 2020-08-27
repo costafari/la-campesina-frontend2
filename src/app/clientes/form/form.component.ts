@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 import { LacampesinaService } from 'src/app/lacampesina.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class FormComponent implements OnInit {
   private idForm: number;
   url: String = "clientes";
 
-  constructor(private lacampesinaService: LacampesinaService, private router: Router, private fb: FormBuilder, private ar: ActivatedRoute) { }
+  constructor(private lacampesinaService: LacampesinaService, private fb: FormBuilder, private ar: ActivatedRoute) { }
 
   ngOnInit(): void {
 

@@ -21,7 +21,8 @@ const routes: Routes = [
   {path: "productos-form", component: FormProductosComponent},
   {path: "productos-form/:id", component: FormProductosComponent},
   {path: "lotes-list", component: ListLotesComponent},
-  {path: "lotes-form", component: FormLotesComponent}
+  {path: "lotes-form", component: FormLotesComponent},
+  {path: "lotes-form/:id", component: FormLotesComponent}
 ];
 
 @NgModule({

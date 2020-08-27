@@ -6,16 +6,16 @@ import { HttpClientModule } from "@angular/common/http";
 import { CdkScrollableModule } from "@angular/cdk/scrolling";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { TableModule } from "primeng/components/table/table";
-import { PanelModule } from "primeng/components/panel/panel";
-import { ButtonModule } from "primeng/components/button/button";
-import { MenubarModule } from 'primeng/components/menubar/menubar';
+import { TableModule } from "primeng/table";
+import { PanelModule } from "primeng/panel";
+import { ButtonModule } from "primeng/button";
+import { MenubarModule } from 'primeng/menubar';
 import { MenuModule } from "primeng/menu";
-import { DropdownModule } from "primeng/components/dropdown/dropdown";
-import { InputTextModule } from "primeng/components/inputtext/inputtext";
-import { InputTextareaModule } from "primeng/components/inputtextarea/inputtextarea";
-import { InputMaskModule } from "primeng/components/inputmask/inputmask";
-import { MenuItem } from 'primeng/api';
+import { DropdownModule } from "primeng/dropdown";
+import { InputTextModule } from "primeng/inputtext";
+import { InputTextareaModule } from "primeng/inputtextarea";
+import { InputMaskModule } from "primeng/inputmask";
+import { CalendarModule } from "primeng/calendar";
 
 import { LacampesinaService } from "./lacampesina.service";
 
@@ -59,7 +59,8 @@ import { FormLotesComponent } from './lotes/form-lotes/form-lotes/form-lotes.com
     DropdownModule,
     InputTextModule,
     InputTextareaModule,
-    InputMaskModule
+    InputMaskModule,
+    CalendarModule
   ],
   providers: [LacampesinaService],
   bootstrap: [AppComponent]
