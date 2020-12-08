@@ -1,0 +1,128 @@
+<!-- Toaster -->
+<p-toast></p-toast>
+
+<!-- Inicio de tabla CRUD -->
+<div class="card" style="padding: 2rem;">
+
+    <div class="card">
+
+        <p-toolbar styleClass="p-mb-4">
+
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2"
+                    (click)="abrirNuevo()"></button>
+                <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                    (click)="eliminarLotesSeleccionados()"
+                    [disabled]="!lotesSeleccionados || !lotesSeleccionados.length"></button>
+            </ng-template>
+
+        </p-toolbar>
+
+        <p-table #dt [value]="listAllLotes" [(selection)]="lotesSeleccionados" [rowHover]="true" dataKey="id"
+            [rows]="10" [paginator]="true" [globalFilterFields]="['lote','cantidad','proveedor','producto']"
+            currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
+            [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <h5 class="p-m-0">Lotes</h5>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                            placeholder="Buscar..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="lote">LOTE <p-sortIcon field="lote"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="fechaEntrada">FECHA ENTRADA <p-sortIcon field="fechaEntrada"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="cantidad">CANTIDAD <p-sortIcon field="cantidad"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="proveedor">PROVEEDOR <p-sortIcon field="proveedor"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="producto">PRODUCTO <p-sortIcon field="producto"></p-sortIcon>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-lote>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="lote"></p-tableCheckbox>
+                    </td>
+                    <td>{{lote.lote}}</td>
+                    <td>{{lote.fechaEntrada | date:'dd/MM/yy'}}</td>
+                    <td>{{lote.cantidad}}</td>
+                    <td>{{lote.proveedor.nombreEmpresa}}</td>
+                    <td>{{lote.producto.nombre}}</td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" (click)="editarLote(lote)"
+                            class="p-button-rounded p-button-success p-mr-2"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                            (click)="eliminarLote(lote)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+
+</div>
+<!-- Fin de tabla CRUD -->
+
+
+<!-- Modal dialog MODIFICACION DE LOTE -->
+
+<p-dialog [(visible)]="loteDialogo" [style]="{width: '750px'}" header="Detalle de Lote" [modal]="true"
+    styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+
+        <div class="p-field">
+            <label for="nombres">Lote</label>
+            <input type="text" pInputText id="lote" [(ngModel)]="lote.lote" required />
+            <small class="p-invalid" *ngIf="submitted && !lote.lote">Lote es requirido.</small>
+        </div>
+
+        <div class="p-field">
+            <label for="fechaEntrada">Fecha Entrada</label>
+            <p-calendar name="fechaEntrada" [(ngModel)]="lote.fechaEntrada" dateFormat="dd/mm/yy" [showIcon]="true"
+                inputId="fechaEntrada" [defaultDate]="defaultDate"></p-calendar>
+        </div>
+
+        <div class="p-field">
+            <label for="cantidad">Cantidad</label>
+            <p-inputNumber [(ngModel)]="lote.cantidad" mode="decimal"></p-inputNumber>
+        </div>
+
+        <div class="p-field">
+            <label for="proveedor">Proveedor</label>
+            <p-dropdown [options]="arrayProveedores" [(ngModel)]="proveedorSeleccionado" >
+            </p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label for="producto">Producto</label>
+            <p-dropdown [options]="arrayProductos" [(ngModel)]="productoSeleccionado" >
+            </p-dropdown>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="ocultarDialogo()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+            (click)="guardarModificarLote()"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Fin Modal dialog MODIFICACION DE LOTE -->

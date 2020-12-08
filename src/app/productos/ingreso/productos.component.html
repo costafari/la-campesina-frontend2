@@ -1,0 +1,107 @@
+<!-- Toaster -->
+<p-toast></p-toast>
+
+<!-- Inicio de tabla CRUD -->
+<div class="card" style="padding: 2rem;">
+
+    <div class="card">
+
+        <p-toolbar styleClass="p-mb-4">
+
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2"
+                    (click)="abrirNuevo()"></button>
+                <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                    (click)="eliminarProductosSeleccionados()"
+                    [disabled]="!productosSeleccionados || !productosSeleccionados.length"></button>
+            </ng-template>
+
+        </p-toolbar>
+
+        <p-table #dt [value]="listAllProductos" [(selection)]="productosSeleccionados" [rowHover]="true" dataKey="id" 
+            [rows]="10" [paginator]="true" [globalFilterFields]="['nombre','descripcion']"
+            currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <h5 class="p-m-0">Productos</h5>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="nombre">NOMBRE <p-sortIcon field="nombre"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="descripcion">DESCRIPCION <p-sortIcon field="descripcion"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="notas">NOTAS <p-sortIcon field="notas"></p-sortIcon>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-producto>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="producto"></p-tableCheckbox> 
+                    </td>
+                    <td>{{producto.nombre}}</td>
+                    <td>{{producto.descripcion}}</td>
+                    <td>{{producto.notas}}</td>
+
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" (click)="editarProducto(producto)"
+                            class="p-button-rounded p-button-success p-mr-2"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                            (click)="eliminarProducto(producto)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+
+</div>
+<!-- Fin de tabla CRUD -->
+
+
+<!-- Modal dialog MODIFICACION DE PRODUCTO -->
+
+<p-dialog [(visible)]="productoDialogo" [style]="{width: '550px'}" header="Detalle de Producto" [modal]="true"
+    styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+
+        <div class="p-field">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText id="nombres" [(ngModel)]="producto.nombre" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !producto.nombre">Nombre es requirido.</small>
+        </div>
+        <div class="p-field">
+            <label for="descripcion">Descripcion</label>
+            <input type="text" pInputText id="descripcion" [(ngModel)]="producto.descripcion" autofocus />
+        </div>
+
+        <div class="p-field">
+            <label for="notas">Notas</label>
+            <textarea id="notas" type="text" rows="4" [(ngModel)]="producto.notas" pInputTextarea></textarea>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="ocultarDialogo()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+            (click)="guardarModificarProducto()"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Fin Modal dialog MODIFICACION DE PRODUCTO -->

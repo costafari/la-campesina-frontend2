@@ -1,0 +1,156 @@
+<!-- Toaster -->
+<p-toast></p-toast>
+
+<!-- Inicio de tabla CRUD -->
+<div class="card" style="padding: 2rem;">
+
+  <div class="card">
+
+    <p-toolbar styleClass="p-mb-4">
+
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2"
+          (click)="abrirNuevo()"></button>
+        <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+          (click)="eliminarProveedoresSeleccionados()"
+          [disabled]="!proveedoresSeleccionados || !proveedoresSeleccionados.length"></button>
+      </ng-template>
+
+    </p-toolbar>
+
+    <p-table #dt [value]="listAllProveedores" [(selection)]="proveedoresSeleccionados" [rowHover]="true" dataKey="id"
+      [rows]="10" [paginator]="true"
+      [globalFilterFields]="['nombreEmpresa','nombreContacto','direccion','telefonoFijo', 'telefonoMovil']"
+      currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          <h5 class="p-m-0">Proveedores</h5>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Buscar..." />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th pSortableColumn="nombreEmpresa">EMPRESA <p-sortIcon field="nombreEmpresa"></p-sortIcon>
+          </th>
+          <th pSortableColumn="nombreContacto">CONTACTO <p-sortIcon field="nombreContacto"></p-sortIcon>
+          </th>
+          <th pSortableColumn="direccion">DIRECCION <p-sortIcon field="direccion"></p-sortIcon>
+          </th>
+          <th pSortableColumn="telefonoFijo">TELEFONO <p-sortIcon field="telefonoFijo"></p-sortIcon>
+          </th>
+          <th pSortableColumn="telefonoMovil">MOVIL <p-sortIcon field="telefonoMovil"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-proveedor>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="proveedor"></p-tableCheckbox>
+          </td>
+          <td>{{proveedor.nombreEmpresa}}</td>
+          <td>{{proveedor.nombreContacto}}</td>
+          <td>{{proveedor.direccion}}</td>
+          <td>{{proveedor.telefonoFijo}}</td>
+          <td>{{proveedor.telefonoMovil}}</td>
+
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" (click)="editarProveedor(proveedor)"
+              class="p-button-rounded p-button-success p-mr-2"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+              (click)="eliminarProveedor(proveedor)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+</div>
+<!-- Fin de tabla CRUD -->
+
+
+<!-- Modal dialog MODIFICACION DE PROVEEDOR -->
+
+<p-dialog [(visible)]="proveedorDialogo" [style]="{width: '550px'}" header="Detalle de Proveedor" [modal]="true"
+  styleClass="p-fluid">
+
+  <ng-template pTemplate="content">
+
+    <div class="p-field">
+      <label for="nombreEmpresa">Nombre Empresa</label>
+      <input type="text" pInputText id="nombreEmpresa" [(ngModel)]="proveedor.nombreEmpresa" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !proveedor.nombreEmpresa">Nombre Empresa es requirido.</small>
+    </div>
+    <div class="p-field">
+      <label for="nombreContacto">Nombre Contacto</label>
+      <input type="text" pInputText id="nombreContacto" [(ngModel)]="proveedor.nombreContacto" required autofocus />
+    </div>
+
+    <div class="p-field">
+      <label for="direccion">Direccion</label>
+      <input type="text" pInputText id="direccion" [(ngModel)]="proveedor.direccion" autofocus />
+    </div>
+
+    <div class="p-field">
+      <label class="p-mb-3">Telefonos Fijos</label>
+      <div class="p-formgrid p-grid">
+        <div class="p-field p-col-6">
+          <label for="telefonoFijo">Fijo 1</label>
+          <p-inputMask id="telefonoFijo" mask="(999) 9999-9999" placeholder="(503) 7777-7777"
+            [(ngModel)]="proveedor.telefonoFijo" autofocus>
+          </p-inputMask>
+        </div>
+        <div class="p-field p-col-6">
+          <label for="telefonoFijo2">Fijo 2</label>
+          <p-inputMask id="telefonoFijo2" mask="(999) 9999-9999" placeholder="(503) 7777-7777"
+            [(ngModel)]="proveedor.telefonoFijo2" autofocus>
+          </p-inputMask>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-field">
+      <label class="p-mb-3">Telefonos Moviles</label>
+      <div class="p-formgrid p-grid">
+        <div class="p-field p-col-6">
+          <label for="telefonoMovil">Movil 1</label>
+          <p-inputMask id="telefonoMovil" mask="(999) 9999-9999" placeholder="(503) 7777-7777"
+            [(ngModel)]="proveedor.telefonoMovil" autofocus>
+          </p-inputMask>
+        </div>
+        <div class="p-field p-col-6">
+          <label for="telefonoMovil2">Movil 2</label>
+          <p-inputMask id="telefonoMovil2" mask="(999) 9999-9999" placeholder="(503) 7777-7777"
+            [(ngModel)]="proveedor.telefonoMovil2" autofocus>
+          </p-inputMask>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-field">
+      <label for="notas">Notas</label>
+      <textarea id="notas" type="text" rows="4" [(ngModel)]="proveedor.notas" pInputTextarea></textarea>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+      (click)="ocultarDialogo()"></button>
+    <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+      (click)="guardarModificarProveedor()"></button>
+  </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Fin Modal dialog MODIFICACION DE CLIENTE -->

@@ -1,12 +1,12 @@
 export class Proveedores {
-    id: Number;
-    nombreEmpresa: String;
-    nombreContacto: String;
-    direccion: String;
-    telefonoFijo: String;
-    telefonoFijo2: String;
-    telefonoMovil: String;
-    telefonoMovil2: String;
-    notas: String;
+    id: number;
+    nombreEmpresa: string;
+    nombreContacto: string;
+    direccion: string;
+    telefonoFijo: string;
+    telefonoFijo2: string;
+    telefonoMovil: string;
+    telefonoMovil2: string;
+    notas: string;
     createdAt: any;
 }

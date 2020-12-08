@@ -1,0 +1,174 @@
+<!-- Toaster -->
+<p-toast></p-toast>
+
+<!-- Inicio de tabla CRUD -->
+<div class="card" style="padding: 2rem;">
+
+    <div class="card">
+
+        <p-toolbar styleClass="p-mb-4">
+
+            <ng-template pTemplate="left">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2"
+                    (click)="abrirNuevo()"></button>
+                <button pButton pRipple label="Eliminar" icon="pi pi-trash" class="p-button-danger"
+                    (click)="eliminarClientesSeleccionados()"
+                    [disabled]="!clientesSeleccionados || !clientesSeleccionados.length"></button>
+            </ng-template>
+
+        </p-toolbar>
+
+        <p-table #dt [value]="listAllClientes" [(selection)]="clientesSeleccionados" [rowHover]="true" dataKey="id" 
+            [rows]="10" [paginator]="true" [globalFilterFields]="['nombres','apellidos','empresa','contacto', 'telefono', 'movil']"
+            currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    <h5 class="p-m-0">Clientes</h5>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th pSortableColumn="nombres">NOMBRES <p-sortIcon field="nombres"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="apellidos">APELLIDOS <p-sortIcon field="apellidos"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="empresa">EMPRESA <p-sortIcon field="empresa"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="contacto">CONTACTO <p-sortIcon field="contacto"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="telefono">TELEFONO <p-sortIcon field="telefono"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="movil">MOVIL <p-sortIcon field="movil"></p-sortIcon>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cliente>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="cliente"></p-tableCheckbox>
+                    </td>
+                    <td>{{cliente.nombres}}</td>
+                    <td>{{cliente.apellidos}}</td>
+                    <td>{{cliente.nombreEmpresa}}</td>
+                    <td>{{cliente.nombreContacto}}</td>
+                    <td>{{cliente.telefonoFijo}}</td>
+                    <td>{{cliente.telefonoMovil}}</td>
+
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" (click)="editarCliente(cliente)"
+                            class="p-button-rounded p-button-success p-mr-2"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                            (click)="eliminarCliente(cliente)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </div>
+
+</div>
+<!-- Fin de tabla CRUD -->
+
+
+<!-- Modal dialog MODIFICACION DE CLIENTE -->
+
+<p-dialog [(visible)]="clienteDialogo" [style]="{width: '550px'}" header="Detalle de Cliente" [modal]="true"
+    styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+
+        <div class="p-field">
+            <label for="nombres">Nombre(s)</label>
+            <input type="text" pInputText id="nombres" [(ngModel)]="cliente.nombres" required autofocus />
+            <small class="p-invalid" *ngIf="submitted && !cliente.nombres">Nombres es requirido.</small>
+        </div>
+        <div class="p-field">
+            <label for="apellidos">Apellido(s)</label>
+            <input type="text" pInputText id="apellidos" [(ngModel)]="cliente.apellidos" autofocus />
+        </div>
+
+        <div class="p-field">
+            <label for="nombreEmpresa">Nombre Empresa</label>
+            <input type="text" pInputText id="nombreEmpresa" [(ngModel)]="cliente.nombreEmpresa" autofocus />
+        </div>
+        <div class="p-field">
+            <label for="nombreContacto">Nombre Contacto</label>
+            <input type="text" pInputText id="nombreContacto" [(ngModel)]="cliente.nombreContacto" autofocus />
+        </div>
+
+        <div class="p-field">
+            <label for="direccion">Direccion</label>
+            <input type="text" pInputText id="direccion" [(ngModel)]="cliente.direccion" autofocus />
+        </div>
+        <div class="p-field">
+            <label for="email">E-mail</label>
+            <input type="text" pInputText id="email" [(ngModel)]="cliente.email" autofocus />
+        </div>
+
+        <div class="p-field">
+            <label class="p-mb-3">Telefonos Fijos</label>
+            <div class="p-formgrid p-grid">
+                <div class="p-field p-col-6">
+                    <label for="telefonoFijo">Fijo 1</label>
+                    <p-inputMask id="telefonoFijo" mask="(999) 9999-9999" placeholder="(503) 7777-7777"
+                        [(ngModel)]="cliente.telefonoFijo" autofocus>
+                    </p-inputMask>
+                </div>
+                <div class="p-field p-col-6">
+                    <label for="telefonoFijo2">Fijo 2</label>
+                    <p-inputMask id="telefonoFijo2" mask="(999) 9999-9999" placeholder="(503) 7777-7777"
+                        [(ngModel)]="cliente.telefonoFijo2" autofocus>
+                    </p-inputMask>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label class="p-mb-3">Telefonos Moviles</label>
+            <div class="p-formgrid p-grid">
+                <div class="p-field p-col-6">
+                    <label for="telefonoMovil">Movil 1</label>
+                    <p-inputMask id="telefonoMovil" mask="(999) 9999-9999" placeholder="(503) 7777-7777"
+                        [(ngModel)]="cliente.telefonoMovil" autofocus>
+                    </p-inputMask>
+                </div>
+                <div class="p-field p-col-6">
+                    <label for="telefonoMovil2">Movil 2</label>
+                    <p-inputMask id="telefonoMovil2" mask="(999) 9999-9999" placeholder="(503) 7777-7777"
+                        [(ngModel)]="cliente.telefonoMovil2" autofocus>
+                    </p-inputMask>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-field">
+            <label for="sitioWeb">Sitio Web</label>
+            <input type="text" pInputText id="sitioWeb" [(ngModel)]="cliente.sitioWeb" autofocus />
+        </div>
+        <div class="p-field">
+            <label for="notas">Notas</label>
+            <textarea id="notas" type="text" rows="4" [(ngModel)]="cliente.notas" pInputTextarea></textarea>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="ocultarDialogo()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+            (click)="guardarModificarCliente()"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<!-- Fin Modal dialog MODIFICACION DE CLIENTE -->

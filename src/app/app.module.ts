@@ -1,3 +1,4 @@
+// Imports Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -6,6 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { CdkScrollableModule } from "@angular/cdk/scrolling";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
+// Modulos Prime
 import { TableModule } from "primeng/table";
 import { PanelModule } from "primeng/panel";
 import { ButtonModule } from "primeng/button";
@@ -16,32 +18,40 @@ import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputMaskModule } from "primeng/inputmask";
 import { CalendarModule } from "primeng/calendar";
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { RippleModule } from 'primeng/ripple';
+import { DialogModule } from "primeng/dialog";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { InputNumberModule } from "primeng/inputnumber";
 
+// Servicios Prime
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+
+// Servicios La Campesina
 import { LacampesinaService } from "./lacampesina.service";
 
+// Modulos La Campesina
 import { AppComponent } from './app.component';
-import { ClientesComponent } from './clientes/list/clientes.component';
-import { FormComponent } from './clientes/form/form.component';
+import { ClientesComponent } from './clientes/ingreso/clientes.component';
 import { MenuComponent } from './menu/menu/menu.component';
-import { ProveedoresComponent } from './proveedores/list/proveedores/proveedores.component';
-import { FormProveedorComponent } from './proveedores/form-proveedor/form-proveedor.component';
-import { ListProductosComponent } from './productos/list-productos/list-productos.component';
-import { FormProductosComponent } from './productos/form-productos/form-productos.component';
-import { ListLotesComponent } from './lotes/list-lotes/list-lotes/list-lotes.component';
-import { FormLotesComponent } from './lotes/form-lotes/form-lotes/form-lotes.component';
+import { ProveedoresComponent } from './proveedores/ingreso/proveedores.component';
+import { ProductosComponent } from './productos/ingreso/productos.component';
+import { LotesComponent } from './lotes/ingreso/lotes.component';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClientesComponent,
-    FormComponent,
     MenuComponent,
     ProveedoresComponent,
-    FormProveedorComponent,
-    ListProductosComponent,
-    FormProductosComponent,
-    ListLotesComponent,
-    FormLotesComponent
+    ProductosComponent,
+    LotesComponent,
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -60,9 +70,15 @@ import { FormLotesComponent } from './lotes/form-lotes/form-lotes/form-lotes.com
     InputTextModule,
     InputTextareaModule,
     InputMaskModule,
-    CalendarModule
+    CalendarModule,
+    ToastModule,
+    ToolbarModule,
+    RippleModule,
+    DialogModule,
+    ConfirmDialogModule,
+    InputNumberModule
   ],
-  providers: [LacampesinaService],
+  providers: [LacampesinaService, ConfirmationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

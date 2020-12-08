@@ -1,7 +1,7 @@
 export class Productos {
-    id: Number;
-    nombre: String;
-	descripcion: String;
-	notas: String;
+    id: number;
+    nombre: string;
+	descripcion: string;
+	notas: string;
     createdAt: any;
 }

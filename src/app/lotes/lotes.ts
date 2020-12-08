@@ -2,11 +2,11 @@ import { Proveedores } from '../proveedores/proveedores';
 import { Productos } from '../productos/productos';
 
 export class Lotes {
-    id: Number;
-    lote: String;
-    fechaEntrada: any;
-    cantidad: Number;
+    id: number;
+    lote: string;
+    fechaEntrada: Date;
+    cantidad: number;
     proveedor: Proveedores;
-	producto: Productos;
-	createdAt: any;
+    producto: Productos;
+    createdAt: any;
 }
